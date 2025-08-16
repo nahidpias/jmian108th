@@ -1,296 +1,179 @@
 <!DOCTYPE html>
-<html lang="bn">
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>মানসিক শান্তি ও ইসলামিক দোয়া</title>
-  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri&display=swap" rel="stylesheet" />
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
-  <style>
-    body {
-      font-family: 'Hind Siliguri', sans-serif;
-      position: relative;
-      margin: 0;
-      padding: 0;
-      min-height: 100vh;
-      text-align: center;
-      color: #064e3b;
-      background: url('https://i.ibb.co/ZxQ3KmT/islamic-background.jpg') no-repeat center center fixed;
-      background-size: cover;
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Batch 24 Phonebook</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+    * {margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif;}
+    body {background: linear-gradient(135deg, #ece9e6, #ffffff); color: #2f3640; transition: all 0.3s ease;}
+
+    /* Login Screen */
+    #loginScreen {
+        display: flex; justify-content: center; align-items: center;
+        height: 100vh; background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+        transition: all 0.5s ease;
     }
-    body::before {
-      content: "";
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background-color: rgba(255, 255, 255, 0.85);
-      z-index: -1;
+    .login-box {
+        background: rgba(255,255,255,0.95); padding: 30px; border-radius: 15px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.3); width: 320px; text-align: center;
+        animation: fadeIn 1s ease;
     }
-    marquee {
-      background: #d1fae5;
-      color: #065f46;
-      font-size: 15px;
-      padding: 8px 0;
+    .login-box h2 {margin-bottom: 20px; font-weight: 700; color: #2575fc;}
+    .login-box input {
+        width: 100%; padding: 12px; margin: 10px 0;
+        border: 1px solid #ccc; border-radius: 10px; font-size: 1em;
+        transition: all 0.3s ease;
     }
+    .login-box input:focus {border-color: #6a11cb; box-shadow: 0 0 8px #6a11cb;}
+    .login-box button {
+        background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+        color: white; border: none; padding: 12px; width: 100%;
+        border-radius: 10px; font-weight: 600; cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    .login-box button:hover {
+        transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    }
+    .error {color: red; font-size: 0.9em; margin-top: 5px;}
+
+    @keyframes fadeIn {from {opacity:0; transform: translateY(-20px);} to {opacity:1; transform: translateY(0);}}
+
+    /* Main Content */
+    #mainContent {display: none; padding: 25px; max-width: 900px; margin: auto; transition: all 0.5s ease;}
     header {
-      background-color: #ffffffcc;
-      padding: 10px 0;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
-      position: sticky;
-      top: 0;
-      z-index: 10;
+        display: flex; align-items: center; gap: 15px; margin-bottom: 20px;
+        background: rgba(255,255,255,0.9); padding: 10px 15px; border-radius: 12px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
     }
-    header h1 {
-      margin: 0;
-      font-size: 28px;
-      font-weight: 700;
+    header img {width: 60px; height: 60px; border-radius: 10px;}
+    header h1 {font-size: 1.8em; font-weight: 700; color: #2575fc;}
+
+    .bio {
+        font-style: italic; color: #555; margin-bottom: 20px;
+        background: rgba(255,255,255,0.85); padding: 10px; border-radius: 10px;
+        text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.05);
     }
-    .subtitle {
-      margin-top: 4px;
-      font-size: 16px;
-      color: #065f46;
-      font-weight: 600;
+
+    /* Search */
+    .search-box {margin-bottom: 20px;}
+    .search-box input {
+        padding: 12px; width: 100%; border: none; border-radius: 12px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.05); font-size: 1em;
+        transition: all 0.3s ease;
     }
-    .container {
-      max-width: 720px;
-      margin: 30px auto 60px;
-      background: #ffffffcc;
-      padding: 25px;
-      border-radius: 10px;
-      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    .search-box input:focus {box-shadow: 0 5px 15px rgba(38, 117, 255,0.4); outline: none;}
+
+    /* Table */
+    table {
+        width: 100%; border-collapse: collapse; background: rgba(255,255,255,0.95);
+        border-radius: 15px; overflow: hidden; box-shadow: 0 5px 25px rgba(0,0,0,0.1);
     }
-    input, textarea, button {
-      width: 100%;
-      padding: 12px;
-      margin-top: 10px;
-      font-size: 16px;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-      box-sizing: border-box;
+    th, td {padding: 15px; text-align: left; border-bottom: 1px solid #eee; transition: all 0.3s ease;}
+    th {background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%); color: white;}
+    tr:hover {background: rgba(38,117,255,0.05);}
+    td {font-weight: 500;}
+
+    @media (max-width: 600px) {
+        table, thead, tbody, th, td, tr {display: block;}
+        th {display: none;}
+        td {border: none; padding: 12px; position: relative;}
+        td:before {
+            content: attr(data-label);
+            position: absolute; left: 0; top: 0;
+            background: #2575fc; color: white;
+            padding: 5px; font-size: 0.75em; border-radius: 0 0 5px 0;
+        }
     }
-    button {
-      background: #10b981;
-      color: white;
-      font-weight: bold;
-      border: none;
-      cursor: pointer;
+
+    /* Footer */
+    footer {
+        margin-top: 25px; font-size: 0.85em; text-align: center; padding: 10px;
+        background: rgba(255,255,255,0.85); border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.05);
     }
-    .result {
-      margin-top: 20px;
-      font-size: 22px;
-      color: #065f46;
-      line-height: 1.6;
-      font-weight: 600;
-    }
-    .arabic {
-      font-size: 26px;
-      font-weight: bold;
-      margin-bottom: 10px;
-      color: #064e3b;
-    }
-    .speak-btn {
-      background: #ecfdf5;
-      color: #047857;
-      padding: 8px 20px;
-      margin-top: 12px;
-      border-radius: 6px;
-      cursor: pointer;
-      display: inline-block;
-      font-weight: 600;
-    }
-    .comment-box {
-      margin-top: 40px;
-      text-align: left;
-    }
-    .comment-box textarea {
-      height: 100px;
-    }
-    .credit {
-      margin-top: 40px;
-      font-size: 14px;
-      color: #4b5563;
-    }
-    .credit a {
-      text-decoration: none;
-      color: #10b981;
-      margin: 0 8px;
-      font-size: 18px;
-      font-weight: 700;
-    }
-  </style>
+    footer a {color: #2575fc; text-decoration: none; font-weight: 600;}
+    footer a:hover {text-decoration: underline;}
+</style>
 </head>
 <body>
-  <marquee>প্রিয় ব্যবহারকারী, এটি একটি পরীক্ষামূলক ওয়েবসাইট! প্রদেয় তথ্যগুলো ভুল হতে পারে, ওয়েবসাইটের মান উন্নয়নে কাজ চলছে! আপনার মন্তব্য আমাদের অনুপ্রেরণা যোগায়!আমাদের সাথেই থাকুন, ধন্যবাদ!</marquee>
-  <header>
-    <h1>🕌 মানসিক শান্তি ও ইসলামিক দোয়া</h1>
-    <div class="subtitle" id="dateSubtitle"></div>
-  </header>
-  <div class="container">
-    <h3>আপনার মনের অবস্থা লিখুন ( সাজেশন থেকে বেছে নিন )</h3>
-    <input list="duaSuggestions" id="userFeeling" placeholder="যেমন: ভয়, দুঃখ, হতাশা..." autocomplete="off" />
-    <datalist id="duaSuggestions">
-      <option value="হতাশা"></option>
-      <option value="ভয়"></option>
-      <option value="রোগ"></option>
-      <option value="ঘুম"></option>
-      <option value="রিযিক"></option>
-      <option value="সন্তান"></option>
-      <option value="দুঃখ"></option>
-      <option value="হতাশা"></option>
-      <option value="উদ্বেগ"></option>
-      <option value="মানসিক চাপ"></option>
-      <option value="রাগ"></option>
-      <option value="শান্তি"></option>
-    </datalist>
-    <button onclick="showSuggestion()">দোয়া দেখাও</button>
-    <div class="result" id="output"></div>
-    <div class="speak-btn" onclick="speakDua()">🔊 দোয়া শুনুন</div>
 
-    <div class="comment-box">
-      <h4>আপনার মতামত দিন:</h4>
-      <form id="commentForm">
-        <textarea id="commentInput" placeholder="আপনার মন্তব্য লিখুন..." required></textarea>
-        <button type="submit">মন্তব্য দিন</button>
-      </form>
+<!-- Login Screen -->
+<div id="loginScreen">
+    <div class="login-box">
+        <h2>Login</h2>
+        <input type="text" id="username" value="Batch 24" readonly>
+        <input type="password" id="password" placeholder="Enter Password">
+        <button onclick="checkLogin()">Enter</button>
+        <div class="error" id="errorMsg"></div>
     </div>
-  </div>
+</div>
 
-  <div class="credit">
-   Developed  by <a href="https://nahidpias.github.io/home/?fbclid=PAZXh0bgNhZW0CMTEAAaeHBl9idrsUX13ay1BYM0giGVjG11sXkGIZEymHfaZszoJo6r9rhUhOjbrq3A_aem_mnUytIbfu3FoTO6yYTl5MA" target="_blank" rel="noopener noreferrer">নাহিদ আল-আসাদ পিয়াস</a> |
-    <a href="https://facebook.com/nahid.pias.33" target="_blank" rel="noopener noreferrer"><i class="bi bi-facebook"></i></a>
-    <a href="https://instagram.com/exotic_naaahid" target="_blank" rel="noopener noreferrer"><i class="bi bi-instagram"></i></a>
-  </div>
+<!-- Main Content -->
+<div id="mainContent">
+    <header>
+        <img src="/storage/emulated/0/All my codes/logo.png" alt="Logo">
+        <h1>JMian 108th Batch-SSC 2024</h1>
+    </header>
+    <p class="bio">One batch • Infinity Aura</p>
+
+    <div class="search-box">
+        <input type="text" id="searchInput" placeholder="Search by Roll..." onkeyup="searchTable()">
+    </div>
+
+    <table id="phonebookTable">
+        <thead>
+            <tr>
+                <th>Roll</th>
+                <th>Name</th>
+                <th>Phone</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td data-label="Roll">01</td>
+                <td data-label="Name">Nahid</td>
+                <td data-label="Phone">017XXXXXXXX</td>
+            </tr>
+            <tr>
+                <td data-label="Roll">02</td>
+                <td data-label="Name">Rakib</td>
+                <td data-label="Phone">018XXXXXXXX</td>
+            </tr>
+            <!-- Add more contacts here -->
+        </tbody>
+    </table>
+
+    <footer>
+        Developed by: <a href="https://nahidpias.github.io/home/" target="_blank">Nahid</a>
+    </footer>
+</div>
 
 <script>
-  // তারিখ প্রদর্শনের জন্য ফাংশন (বাংলা, আরবি, ইংরেজি)
-  function getBanglaDate(gregDate) {
-    const banglaDigits = ['০','১','২','৩','৪','৫','৬','৭','৮','৯'];
-    function toBanglaDigits(num) {
-      return num.toString().split('').map(d => banglaDigits[d] || d).join('');
+function checkLogin() {
+    const password = document.getElementById("password").value;
+    const errorMsg = document.getElementById("errorMsg");
+    if(password === "asdf") {
+        document.getElementById("loginScreen").style.display = "none";
+        document.getElementById("mainContent").style.display = "block";
+    } else {
+        errorMsg.textContent = "Incorrect Password!";
     }
-    const banglaMonths = ['জানুয়ারি','ফেব্রুয়ারি','মার্চ','এপ্রিল','মে','জুন','জুলাই','আগস্ট','সেপ্টেম্বর','অক্টোবর','নভেম্বর','ডিসেম্বর'];
-    return toBanglaDigits(gregDate.getDate()) + ' ' + banglaMonths[gregDate.getMonth()] + ', ' + toBanglaDigits(gregDate.getFullYear());
-  }
+}
 
-  function getArabicDate(gregDate) {
-    try {
-      return new Intl.DateTimeFormat('ar-SA-u-ca-islamic', {
-        day: 'numeric', month: 'long', year: 'numeric'
-      }).format(gregDate);
-    } catch {
-      return 'তারিখ পাওয়া যায়নি';
-    }
-  }
-
-  function updateDateSubtitle() {
-    const today = new Date();
-    const subtitle = document.getElementById('dateSubtitle');
-    subtitle.textContent = `আজকের তারিখ: ইংরেজি - ${today.toLocaleDateString('en-US')}, বাংলা - ${getBanglaDate(today)}, আরবি - ${getArabicDate(today)}`;
-  }
-
-  // দোয়া ও মানসিক অবস্থা ডেটা
-  const duas = {
-    "হতাশা": [
-      "اللهم اجعل لي فرجًا ومخرجًا — হে আল্লাহ, আমার জন্য মুক্তি ও পথ তৈরি করে দিন।",
-      "اللَّهُمَّ لا سَهْلَ إِلاَّ مَا جَعَلْتَهُ سَهْلاً — হে আল্লাহ! আপনি যা সহজ করেন তা-ই সহজ।",
-      "ولا تيأسوا من روح الله — আল্লাহর রহমত থেকে নিরাশ হয়ো না।"
-    ],
-    "ভয়": [
-      "اللهم إني أعوذ بك من الهم والحزن — হে আল্লাহ, আমি আপনার কাছে ভয় ও দুঃখ থেকে আশ্রয় চাই।",
-      "حسبنا الله ونعم الوكيل — আল্লাহই আমাদের জন্য যথেষ্ট।",
-      "رب إني مسني الضر وأنت أرحم الراحمين — হে আমার প্রতিপালক, বিপদ আমাকে ছুঁয়েছে, আর আপনি পরম দয়ালু।"
-    ],
-    "রোগ": [
-      "اللهم رب الناس أذهب البأس اشفِ وأنت الشافي — হে আল্লাহ! আপনি রোগ হরণকারী, আপনি শিফা দিন।",
-      "أَسْأَلُ اللَّهَ الْعَظِيمَ رَبَّ الْعَرْشِ الْعَظِيمِ أَنْ يَشْفِيَكَ — আমি মহান আল্লাহর নিকট আরোগ্য কামনা করি।",
-      "اللَّهُمَّ اشْفِنِي شِفَاءً لَا يُغَادِرُ سَقَمًا — হে আল্লাহ! আমাকে পূর্ণ সুস্থতা দিন।"
-    ],
-    "ঘুম": [
-      "بِاسْمِكَ اللَّهُمَّ أَحْيَا وَأَمُوتُ — হে আল্লাহ, তোমার নামেই আমি ঘুমাই ও জাগি।",
-      "اللَّهُمَّ قِنِي عَذَابَكَ يَوْمَ تَبْعَثُ عِبَادَكَ — হে আল্লাহ, কিয়ামতের দিন আমাকে আপনার শাস্তি থেকে বাঁচান।",
-      "اللَّهُمَّ اغْفِرْ لِي، وَارْحَمْنِي — হে আল্লাহ! আমাকে ক্ষমা করুন ও দয়া করুন।"
-    ],
-    "রিযিক": [
-      "اللهم اكفني بحلالك عن حرامك — হে আল্লাহ! হালাল রিজিক দ্বারা আমাকে হারাম থেকে বাঁচান।",
-      "اللهم ارزقني رزقاً طيباً — হে আল্লাহ! আমাকে পবিত্র রিজিক দিন।",
-      "اللهم افتح لي أبواب رحمتك — হে আল্লাহ! আমার জন্য আপনার রহমতের দরজা খুলে দিন।"
-    ],
-    "সন্তান": [
-      "رَبِّ هَبْ لِي مِنَ الصَّالِحِينَ — হে আমার প্রতিপালক! আমাকে নেক সন্তান দান করুন।",
-      "رَبِّ اجْعَلْنِي مُقِيمَ الصَّلَاةِ وَمِن ذُرِّيَّتِي — হে আমার রব! আমাকে ও আমার সন্তানদের নামাজ কায়েমকারী বানান।",
-      "اللهم اصلح لي ذريتي — হে আল্লাহ! আমার সন্তানদের ভালো করুন।"
-    ]
-  };
-
-  const fallback = [
-    "اللهم اجعل القرآن ربيع قلبي — হে আল্লাহ, কোরআনকে আমার অন্তরের প্রশান্তির উৎস বানিয়ে দিন।",
-    "أستغفر الله العظيم — আমি মহান আল্লাহর নিকট ক্ষমা প্রার্থনা করি।",
-    "اللهم ثبت قلبي على دينك — হে আল্লাহ, আমার হৃদয়কে আপনার দ্বীনের উপর অটল রাখুন।"
-  ];
-
-  let currentDua = "";
-
-  function showSuggestion() {
-    const feeling = document.getElementById("userFeeling").value.trim().toLowerCase();
-    const output = document.getElementById("output");
-    let matched = false;
-
-    for (const key in duas) {
-      if (feeling.includes(key)) {
-        const options = duas[key];
-        currentDua = options[Math.floor(Math.random() * options.length)];
-        output.innerHTML = `<div class="arabic">${currentDua}</div>`;
-        matched = true;
-        break;
-      }
-    }
-
-    if (!matched) {
-      currentDua = fallback[Math.floor(Math.random() * fallback.length)];
-      output.innerHTML = `<div class="arabic">${currentDua}</div>`;
-    }
-  }
-
-  function speakDua() {
-    if (currentDua) {
-      let textToSpeak = currentDua;
-      let parts = currentDua.split('—');
-      if(parts.length === 2){
-        let arabicPart = parts[0].trim();
-        let banglaPart = parts[1].trim();
-
-        let arabicUtterance = new SpeechSynthesisUtterance(arabicPart);
-        arabicUtterance.lang = 'ar-SA';
-        arabicUtterance.rate = 0.9;
-
-        arabicUtterance.onend = function(){
-          let banglaUtterance = new SpeechSynthesisUtterance(banglaPart);
-          banglaUtterance.lang = 'bn-BD';
-          banglaUtterance.rate = 0.9;
-          speechSynthesis.speak(banglaUtterance);
-        };
-        speechSynthesis.speak(arabicUtterance);
-      } else {
-        let banglaUtterance = new SpeechSynthesisUtterance(textToSpeak);
-        banglaUtterance.lang = 'bn-BD';
-        banglaUtterance.rate = 0.9;
-        speechSynthesis.speak(banglaUtterance);
-      }
-    }
-  }
-
-  document.getElementById('commentForm').addEventListener('submit', function(e){
-    e.preventDefault();
-    const comment = document.getElementById('commentInput').value.trim();
-    if(comment === '') return alert('মন্তব্য লিখুন');
-    const subject = encodeURIComponent('নতুন মন্তব্য - মানসিক শান্তি ওয়েবসাইট');
-    const body = encodeURIComponent(comment);
-    const mailtoLink = `mailto:nahidpias2006@gmail.com?subject=${subject}&body=${body}`;
-    window.location.href = mailtoLink;
-    this.reset();
-    alert('কারিগরি দক্ষতার সীমাবদ্বতার জন্য মন্তব্যটি স্বয়ংক্রিয়ভাবে কর্তৃপক্ষের কাছে মেইল করা হচ্ছে!অতি দ্রুত এই সমস্যা সমাধান করা হবে! - নাহিদ');
-  });
-
-  window.onload = updateDateSubtitle;
+function searchTable() {
+    const input = document.getElementById("searchInput").value.toLowerCase();
+    const rows = document.querySelectorAll("#phonebookTable tbody tr");
+    rows.forEach(row => {
+        const roll = row.querySelector("td").textContent.toLowerCase();
+        if(roll.includes(input)) {
+            row.style.display = "";
+        } else {
+            row.style.display = "none";
+        }
+    });
+}
 </script>
+
 </body>
 </html>
